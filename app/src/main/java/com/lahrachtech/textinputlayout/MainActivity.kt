@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.dialog_branche.view.*
 class MainActivity : AppCompatActivity() {
     lateinit var mDatabase: DatabaseReference;
     lateinit var nameOfTheBranches: ArrayList<String>
+    var years= arrayOf("First year","second year")
+    //add branches to drop down manu
+
     override fun onStart() {
         super.onStart()
         mDatabase.addValueEventListener(object : ValueEventListener {
@@ -23,19 +26,59 @@ class MainActivity : AppCompatActivity() {
                 }
                 val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_dropdown_item_1line, nameOfTheBranches)
                 chooseBranch.setAdapter(adapter)
-            }
 
+            }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@MainActivity, "error", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
+    //add branches to firebase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mDatabase = FirebaseDatabase.getInstance().getReference("branches");
         nameOfTheBranches = arrayListOf()
+        val listItems = arrayOf(
+            "First Year",
+            "Last Year"
+        )
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Choose Year")
+            .setSingleChoiceItems(
+                listItems,
+                0
+            ) { _, i ->
+                Toast.makeText(
+                    this,
+                    "${listItems[i]}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }.setPositiveButton("accept") { _, _ ->
+
+                Toast.makeText(
+                    this,
+                    "accept",
+                    Toast.LENGTH_SHORT
+
+                ).show()
+            }.setNegativeButton("decline") { _, _ ->
+                Toast.makeText(
+                    this,
+                    "decline",
+                    Toast.LENGTH_SHORT
+
+                ).show()
+            }.create()
+        chooseBranch.setOnItemClickListener { parent, view, position, id ->
+            dialog.show()
+//            val selected = parent.getItemAtPosition(position) as String
+//            // Do something with the selected item
+//            Toast.makeText(this, "Selected: $selected", Toast.LENGTH_SHORT).show()
+        }
+        // add branches
         faBtnAddBranch.setOnClickListener {
             val (view, alertDialog) = alertBuilder(R.layout.dialog_branche)
             alertDialog.show()
