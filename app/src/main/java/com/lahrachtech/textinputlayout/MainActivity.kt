@@ -1,6 +1,7 @@
 package com.lahrachtech.textinputlayout
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -96,6 +97,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+        }
+        button.setOnClickListener{
+            val mainIntent = Intent(this@MainActivity,TeacherActivity::class.java)
+            startActivity(mainIntent)
         }
     }
 
