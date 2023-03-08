@@ -70,7 +70,7 @@ class TeacherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teacher)
         mDatabase = FirebaseDatabase.getInstance().getReference("branches");
-        nameOfTheBranches = arrayListOf()transparentBack.alpha=0.5f
+        nameOfTheBranches = arrayListOf()
 
 
     }
